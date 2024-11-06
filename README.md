@@ -2,6 +2,7 @@
 
 **MMM-Sensibo** is a [MagicMirror](https://github.com/MichMich/MagicMirror) module that integrates with the Sensibo API to display a list of your Sensibo thermostats. Each thermostat displays the room name and target temperature, with a Font Awesome icon for easy recognition.
 
+#### Example Screenshot
 <img width="261" alt="image" src="https://github.com/user-attachments/assets/437a5e70-85ce-45af-9fcc-f17ce7e5de38">
 
 
@@ -64,9 +65,6 @@
 #### Dependencies
 - [@fortawesome/fontawesome-free](https://fontawesome.com) for Font Awesome icons.
 
-#### Example Screenshot
-
-_Include a screenshot here of both grid and list views if possible, with dual temperature display._
 
 #### Contributing
 Feel free to submit pull requests for new features, bug fixes, or improvements to the UI.
