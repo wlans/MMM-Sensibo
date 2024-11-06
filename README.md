@@ -12,7 +12,7 @@
 
    ```bash
    cd ~/MagicMirror/modules
-   git clone https://github.com/YOUR_GITHUB_USERNAME/MMM-Sensibo.git
+   git clone https://github.com/wlans/MMM-Sensibo.git
    cd MMM-Sensibo
    npm install
    ```
