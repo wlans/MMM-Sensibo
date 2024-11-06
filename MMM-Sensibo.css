@@ -8,8 +8,8 @@
 
 .sensibo-thermostats.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 15px;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 12px;
   padding: 10px;
   width: 100%;
 }
@@ -19,28 +19,50 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 15px;
+  padding: 12px;
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   text-align: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 150px;
+  max-width: 140px;
+  transition: transform 0.3s;
 }
 
-.thermostat-item i {
-  font-size: 1.5em;
+.thermostat-item:hover {
+  transform: scale(1.05);
+}
+
+.thermostat-item .small-icon {
+  font-size: 1.3em; /* Smaller icon size */
   color: #3498db;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
 }
 
 .thermostat-room-name {
   font-weight: bold;
   margin-bottom: 4px;
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .thermostat-status {
-  font-size: 0.9em;
-  color: #ccc;
-  margin-top: 5px;
+  font-size: 0.85em;
+  color: #ddd;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.thermostat-status .temperature,
+.thermostat-status .humidity {
+  display: flex;
+  align-items: center;
+  margin-top: 3px;
+}
+
+.temperature i,
+.humidity i {
+  font-size: 1em;
+  margin-right: 5px;
+  color: #a3c4dc; /* Lighter blue for icons */
 }
