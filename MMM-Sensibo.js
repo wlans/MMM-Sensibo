@@ -8,7 +8,8 @@ Module.register("MMM-Sensibo", {
         apiKey: "",
         updateInterval: 10 * 60 * 1000, // Update every 10 minutes
         view: "list", // "list" or "grid"
-        roomIcons: {} // Custom icons can be specified here
+        roomIcons: {}, // Custom icons can be specified here
+        temperatureUnit: "F" // Options: "F", "C", "dual"
     },
 
     start: function () {
@@ -90,17 +91,31 @@ Module.register("MMM-Sensibo", {
             nameContainer.appendChild(roomName);
             item.appendChild(nameContainer);
 
-            // Status container for target and current temperatures, mode, and fan level
+            // Status container for temperatures, mode, and fan level
             const statusContainer = document.createElement("div");
             statusContainer.className = "thermostat-status";
             const { targetTemperature, mode, fanLevel, on } = thermostat.acState;
 
-            // Get current temperature if available
-            const currentTemp = thermostat.measurements?.temperature;
-            const stateText = on ? `${mode} - Target: ${targetTemperature}°F - Fan: ${fanLevel}` : "Off";
-            const tempText = currentTemp !== undefined ? `Current: ${currentTemp}°F` : "";
+            // Handle target temperature display
+            const targetTempF = targetTemperature;
+            const targetTempC = Math.round((targetTemperature - 32) * (5 / 9));
+            const targetTempDisplay = this.config.temperatureUnit === "dual" ?
+                `${targetTempF}°F / ${targetTempC}°C` :
+                `${this.config.temperatureUnit === "C" ? targetTempC : targetTempF}°${this.config.temperatureUnit}`;
 
-            // Display target temperature, mode, fan, and current temperature
+            // Handle current temperature display (API returns in Celsius)
+            const currentTempCelsius = thermostat.measurements?.temperature;
+            const currentTempFahrenheit = currentTempCelsius !== undefined ? Math.round((currentTempCelsius * 9 / 5) + 32) : undefined;
+            const currentTempDisplay = currentTempCelsius !== undefined ? (
+                this.config.temperatureUnit === "dual" ?
+                    `${currentTempFahrenheit}°F / ${currentTempCelsius}°C` :
+                    `${this.config.temperatureUnit === "C" ? currentTempCelsius : currentTempFahrenheit}°${this.config.temperatureUnit}`
+            ) : "";
+
+            const stateText = on ? `${mode} - Target: ${targetTempDisplay} - Fan: ${fanLevel}` : "Off";
+            const tempText = currentTempDisplay ? `Current: ${currentTempDisplay}` : "";
+
+            // Combine text and append to DOM
             statusContainer.innerHTML = `${stateText} ${tempText}`;
             item.appendChild(statusContainer);
 
@@ -109,5 +124,5 @@ Module.register("MMM-Sensibo", {
 
         return wrapper;
     }
-    ,
+
 });

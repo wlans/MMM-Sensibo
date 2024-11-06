@@ -6,6 +6,7 @@
 - **Real-Time Thermostat Data**: Fetches and displays the current target temperature, fan level, mode, and room name for each thermostat linked to your Sensibo account.
 - **View Toggle (Grid/List)**: Switch between a grid or list view directly on the MagicMirror interface. You can set the default view in the module’s configuration.
 - **Customizable Icons**: Specify custom Font Awesome icons for different room types in the configuration, or fall back to the default icons if none are provided.
+- **Dual Temperature Display**: Choose to display temperatures in Fahrenheit, Celsius, or both (dual mode), allowing users to view readings in their preferred unit.
 
 #### Installation
 
@@ -29,6 +30,7 @@
        config: {
            apiKey: "YOUR_SENSIBO_API_KEY", // Replace with your Sensibo API key
            view: "list",                   // Default view, can be "list" or "grid"
+           temperatureUnit: "dual",        // Options: "F", "C", "dual" to show both Fahrenheit and Celsius
            roomIcons: {                    // Optional custom icons for room types
                Kitchen: "fa-blender",
                Garage: "fa-car",
@@ -42,16 +44,18 @@
 
 #### Configuration Options
 
-| Option           | Description                                                                     | Default       |
-|------------------|---------------------------------------------------------------------------------|---------------|
-| `apiKey`         | **Required** Your Sensibo API key.                                              | `""`          |
-| `updateInterval` | Interval (in milliseconds) between data refreshes.                              | `600000` (10 minutes) |
-| `view`           | Display mode for thermostats: `"grid"` or `"list"`.                             | `"list"`      |
-| `roomIcons`      | Object mapping room types to Font Awesome icon classes. See example above.      | `{}`          |
+| Option             | Description                                                                 | Default       |
+|--------------------|-----------------------------------------------------------------------------|---------------|
+| `apiKey`           | **Required** Your Sensibo API key.                                          | `""`          |
+| `updateInterval`   | Interval (in milliseconds) between data refreshes.                          | `600000` (10 minutes) |
+| `view`             | Display mode for thermostats: `"grid"` or `"list"`.                         | `"list"`      |
+| `temperatureUnit`  | Temperature unit for display: `"F"` (Fahrenheit), `"C"` (Celsius), or `"dual"` (both). | `"F"` |
+| `roomIcons`        | Object mapping room types to Font Awesome icon classes. See example above.  | `{}`          |
 
 #### Usage
 - **View Toggle**: A toggle button allows you to easily switch between list and grid views on the fly.
 - **Customizable Icons**: Use the `roomIcons` configuration to define specific Font Awesome icons for room types. Icons are assigned based on room names such as "Kitchen," "Office," or "Gym."
+- **Dual Temperature Display**: Set `temperatureUnit` to `"dual"` to display both Fahrenheit and Celsius side-by-side for target and current temperatures. Choose `"F"` or `"C"` to display a single unit.
 - **Customizable Styling**: The Font Awesome icons and layout styles are easy to customize through CSS. Custom styles can be added in the `MMM-Sensibo.css` file.
 
 #### Dependencies
@@ -59,7 +63,7 @@
 
 #### Example Screenshot
 
-_Include a screenshot here of both grid and list views if possible!_
+_Include a screenshot here of both grid and list views if possible, with dual temperature display._
 
 #### Contributing
 Feel free to submit pull requests for new features, bug fixes, or improvements to the UI.
