@@ -2,6 +2,9 @@
 
 **MMM-Sensibo** is a [MagicMirror](https://github.com/MichMich/MagicMirror) module that integrates with the Sensibo API to display a list of your Sensibo thermostats. Each thermostat displays the room name and target temperature, with a Font Awesome icon for easy recognition.
 
+<img width="261" alt="image" src="https://github.com/user-attachments/assets/437a5e70-85ce-45af-9fcc-f17ce7e5de38">
+
+
 #### Key Features
 - **Real-Time Thermostat Data**: Fetches and displays the current target temperature, fan level, mode, and room name for each thermostat linked to your Sensibo account.
 - **View Toggle (Grid/List)**: Switch between a grid or list view directly on the MagicMirror interface. You can set the default view in the module’s configuration.
