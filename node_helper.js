@@ -13,7 +13,7 @@ module.exports = NodeHelper.create({
     },
 
     fetchSensiboData: function (apiKey) {
-        const url = `https://home.sensibo.com/api/v2/users/me/pods?apiKey=${apiKey}&fields=room,pod,acState`;
+        const url = `https://home.sensibo.com/api/v2/users/me/pods?apiKey=${apiKey}&fields=room,pod,acState,measurements`;
 
         https.get(url, (response) => {
             let data = "";

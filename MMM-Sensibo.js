@@ -81,18 +81,33 @@ Module.register("MMM-Sensibo", {
             icon.className = `fas ${this.getIconClass(thermostat.room.icon)}`;
             item.appendChild(icon);
 
-            // Room name and target temperature
-            const name = document.createElement("span");
-            name.className = "thermostat-name";
-            const { name: roomName, icon: roomIcon } = thermostat.room;
+            // Room name container
+            const nameContainer = document.createElement("div");
+            nameContainer.className = "thermostat-room-name";
+            const roomName = document.createElement("span");
+            roomName.className = "room-name";
+            roomName.innerHTML = thermostat.room.name;
+            nameContainer.appendChild(roomName);
+            item.appendChild(nameContainer);
+
+            // Status container for target and current temperatures, mode, and fan level
+            const statusContainer = document.createElement("div");
+            statusContainer.className = "thermostat-status";
             const { targetTemperature, mode, fanLevel, on } = thermostat.acState;
-            const stateText = on ? `${mode} - ${targetTemperature}°F - Fan: ${fanLevel}` : "Off";
-            name.innerHTML = `${roomName} (${stateText})`;
-            item.appendChild(name);
+
+            // Get current temperature if available
+            const currentTemp = thermostat.measurements?.temperature;
+            const stateText = on ? `${mode} - Target: ${targetTemperature}°F - Fan: ${fanLevel}` : "Off";
+            const tempText = currentTemp !== undefined ? `Current: ${currentTemp}°F` : "";
+
+            // Display target temperature, mode, fan, and current temperature
+            statusContainer.innerHTML = `${stateText} ${tempText}`;
+            item.appendChild(statusContainer);
 
             wrapper.appendChild(item);
         });
 
         return wrapper;
-    },
+    }
+    ,
 });
