@@ -7,12 +7,13 @@ Module.register("MMM-Sensibo", {
     defaults: {
         apiKey: "",
         updateInterval: 10 * 60 * 1000, // Update every 10 minutes
-        view: "list" // "list" or "grid"
+        view: "list", // "list" or "grid"
+        roomIcons: {} // Custom icons can be specified here
     },
 
     start: function () {
         this.thermostats = [];
-        this.getData();
+        this.sendSocketNotification("FETCH_SENSIBO_DATA", { apiKey: this.config.apiKey });
         this.scheduleUpdate();
     },
 
@@ -20,28 +21,46 @@ Module.register("MMM-Sensibo", {
         return ["MMM-Sensibo.css", "modules/MMM-Sensibo/node_modules/@fortawesome/fontawesome-free/css/all.min.css"];
     },
 
-    getData: function () {
-        const url = `https://home.sensibo.com/api/v2/users/me/pods?apiKey=${this.config.apiKey}&fields=room,pod,acState`;
-
-        fetch(url)
-            .then((response) => response.json())
-            .then((data) => {
-                if (data.status === "success") {
-                    this.thermostats = data.result;
-                    this.updateDom();
-                } else {
-                    console.error("MMM-Sensibo: Failed to fetch data");
-                }
-            })
-            .catch((error) => {
-                console.error("MMM-Sensibo: Error fetching data", error);
-            });
-    },
-
     scheduleUpdate: function () {
         setInterval(() => {
-            this.getData();
+            this.sendSocketNotification("FETCH_SENSIBO_DATA", { apiKey: this.config.apiKey });
         }, this.config.updateInterval);
+    },
+
+    socketNotificationReceived: function (notification, payload) {
+        if (notification === "SENSIBO_DATA") {
+            this.thermostats = payload;
+            this.updateDom();
+        }
+    },
+
+    getIconClass: function (roomType) {
+        // Default icons mapping
+        const defaultIcons = {
+            Office: "fa-briefcase",
+            Bedroom: "fa-bed",
+            Kitchen: "fa-utensils",
+            Kidsroom: "fa-child",
+            Diningroom: "fa-chair",
+            Livingroom: "fa-couch",
+            Bathroom: "fa-bath",
+            Garage: "fa-warehouse",
+            Basement: "fa-house-damage",
+            Attic: "fa-home",
+            Laundryroom: "fa-tshirt",
+            Gym: "fa-dumbbell",
+            Study: "fa-book",
+            Hallway: "fa-door-open",
+            Storage: "fa-box",
+            Patio: "fa-tree",
+            Balcony: "fa-tree",
+            GameRoom: "fa-gamepad",
+            Theater: "fa-film",
+            Garden: "fa-seedling"
+        };
+
+        // Use custom icon from config if provided, otherwise fall back to default icon
+        return this.config.roomIcons[roomType] || defaultIcons[roomType] || "fa-thermometer-half";
     },
 
     getDom: function () {
@@ -57,13 +76,18 @@ Module.register("MMM-Sensibo", {
             const item = document.createElement("div");
             item.className = "thermostat-item";
 
+            // Icon based on room type
             const icon = document.createElement("i");
-            icon.className = "fas fa-thermometer-half"; // Font Awesome icon
+            icon.className = `fas ${this.getIconClass(thermostat.room.icon)}`;
             item.appendChild(icon);
 
+            // Room name and target temperature
             const name = document.createElement("span");
             name.className = "thermostat-name";
-            name.innerHTML = `${thermostat.room.name} - ${thermostat.acState.targetTemperature}°C`;
+            const { name: roomName, icon: roomIcon } = thermostat.room;
+            const { targetTemperature, mode, fanLevel, on } = thermostat.acState;
+            const stateText = on ? `${mode} - ${targetTemperature}°F - Fan: ${fanLevel}` : "Off";
+            name.innerHTML = `${roomName} (${stateText})`;
             item.appendChild(name);
 
             wrapper.appendChild(item);
