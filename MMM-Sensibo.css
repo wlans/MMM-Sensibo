@@ -2,67 +2,69 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 10px;
+  padding: 5px; /* Reduce padding */
   width: 100%;
 }
 
 .sensibo-thermostats.grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 12px;
-  padding: 10px;
+  grid-template-columns: repeat(
+    auto-fill,
+    minmax(160px, 1fr)
+  ); /* Wider columns */
+  gap: 10px; /* Reduce gap */
+  padding: 5px; /* Reduce padding */
   width: 100%;
 }
 
 .thermostat-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* Make items row-aligned for a shorter look */
   align-items: center;
-  justify-content: center;
-  padding: 12px;
+  justify-content: space-between;
+  padding: 8px; /* Reduce padding */
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
-  text-align: center;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-  max-width: 140px;
+  text-align: left;
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.15); /* Slightly lighter shadow */
+  width: 160px; /* Wider max-width */
   transition: transform 0.3s;
 }
 
 .thermostat-item:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .thermostat-item .small-icon {
-  font-size: 1.3em; /* Smaller icon size */
+  font-size: 1.2em; /* Smaller icon */
   color: #3498db;
-  margin-bottom: 6px;
+  margin-right: 8px; /* Separate icon from text */
 }
 
 .thermostat-room-name {
   font-weight: bold;
-  margin-bottom: 4px;
   font-size: 1em;
+  margin-right: auto; /* Push name to the left */
 }
 
 .thermostat-status {
-  font-size: 0.85em;
+  font-size: 0.8em; /* Slightly smaller text */
   color: #ddd;
-  margin-top: 4px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .thermostat-status .temperature,
 .thermostat-status .humidity {
   display: flex;
   align-items: center;
-  margin-top: 3px;
+  margin-top: 2px; /* Reduce margin */
 }
 
 .temperature i,
 .humidity i {
   font-size: 1em;
-  margin-right: 5px;
-  color: #a3c4dc; /* Lighter blue for icons */
+  margin-right: 4px;
+  color: #a3c4dc; /* Light blue icons */
 }
