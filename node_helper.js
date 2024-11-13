@@ -2,17 +2,17 @@ const NodeHelper = require("node_helper");
 const https = require("node:https");
 
 module.exports = NodeHelper.create({
-    start: function () {
+    start () {
         console.log("Starting node helper for MMM-Sensibo");
     },
 
-    socketNotificationReceived: function (notification, payload) {
+    socketNotificationReceived (notification, payload) {
         if (notification === "FETCH_SENSIBO_DATA") {
             this.fetchSensiboData(payload.apiKey);
         }
     },
 
-    fetchSensiboData: function (apiKey) {
+    fetchSensiboData (apiKey) {
         const url = `https://home.sensibo.com/api/v2/users/me/pods?apiKey=${apiKey}&fields=room,pod,acState,measurements`;
 
         https.get(url, (response) => {
