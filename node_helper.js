@@ -1,5 +1,5 @@
 const NodeHelper = require("node_helper");
-const https = require("https");
+const https = require("node:https");
 
 module.exports = NodeHelper.create({
     start: function () {
