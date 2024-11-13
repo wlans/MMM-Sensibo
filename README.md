@@ -4,7 +4,7 @@
 
 ## Example Screenshot
 
-<img width="261" alt="image" src="https://github.com/user-attachments/assets/437a5e70-85ce-45af-9fcc-f17ce7e5de38">
+![Screenshot](screenshot.png)
 
 ## Key Features
 
