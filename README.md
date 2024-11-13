@@ -1,6 +1,6 @@
 # MMM-Sensibo: MagicMirror Module for Sensibo Thermostats
 
-**MMM-Sensibo** is a [MagicMirror](https://github.com/MichMich/MagicMirror) module that integrates with the Sensibo API to display a list of your Sensibo thermostats. Each thermostat displays the room name and target temperature, with a Font Awesome icon for easy recognition.
+**MMM-Sensibo** is a [MagicMirror²](https://github.com/MagicMirrorOrg/MagicMirror) module that integrates with the Sensibo API to display a list of your Sensibo thermostats. Each thermostat displays the room name and target temperature, with a Font Awesome icon for easy recognition.
 
 ## Example Screenshot
 
@@ -19,7 +19,7 @@
 
    ```bash
    cd ~/MagicMirror/modules
-   git clone https://github.com/wlans/MMM-Sensibo.git
+   git clone https://github.com/wlans/MMM-Sensibo
    cd MMM-Sensibo
    npm install
    ```
@@ -44,7 +44,7 @@
                Garden: "fa-leaf"
            }
        }
-   }
+   },
    ```
 
 ## Configuration Options
