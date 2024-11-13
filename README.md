@@ -74,4 +74,4 @@ Feel free to submit pull requests for new features, bug fixes, or improvements t
 
 ## License
 
-MIT License
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
