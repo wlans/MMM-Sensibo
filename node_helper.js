@@ -1,9 +1,10 @@
+const Log = require("logger");
 const NodeHelper = require("node_helper");
 const https = require("node:https");
 
 module.exports = NodeHelper.create({
     start () {
-        console.log("Starting node helper for MMM-Sensibo");
+        Log.log("Starting node helper for MMM-Sensibo");
     },
 
     socketNotificationReceived (notification, payload) {
@@ -30,14 +31,14 @@ module.exports = NodeHelper.create({
                     if (parsedData.status === "success") {
                         this.sendSocketNotification("SENSIBO_DATA", parsedData.result);
                     } else {
-                        console.error("MMM-Sensibo: Failed to fetch data");
+                        Log.error("[MMM-Sensibo] Failed to fetch data");
                     }
                 } catch (error) {
-                    console.error("MMM-Sensibo: Error parsing data", error);
+                    Log.error("[MMM-Sensibo] Error parsing data", error);
                 }
             });
         }).on("error", (error) => {
-            console.error("MMM-Sensibo: Error fetching data", error);
+            Log.error("[MMM-Sensibo] Error fetching data", error);
         });
     }
 });
