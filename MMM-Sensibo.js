@@ -12,30 +12,30 @@ Module.register("MMM-Sensibo", {
         temperatureUnit: "F" // Options: "F", "C", "dual"
     },
 
-    start: function () {
+    start () {
         this.thermostats = [];
         this.sendSocketNotification("FETCH_SENSIBO_DATA", { apiKey: this.config.apiKey });
         this.scheduleUpdate();
     },
 
-    getStyles: function () {
+    getStyles () {
         return ["MMM-Sensibo.css", "modules/MMM-Sensibo/node_modules/@fortawesome/fontawesome-free/css/all.min.css"];
     },
 
-    scheduleUpdate: function () {
+    scheduleUpdate () {
         setInterval(() => {
             this.sendSocketNotification("FETCH_SENSIBO_DATA", { apiKey: this.config.apiKey });
         }, this.config.updateInterval);
     },
 
-    socketNotificationReceived: function (notification, payload) {
+    socketNotificationReceived (notification, payload) {
         if (notification === "SENSIBO_DATA") {
             this.thermostats = payload;
             this.updateDom();
         }
     },
 
-    getIconClass: function (roomType) {
+    getIconClass (roomType) {
         // Default icons mapping
         const defaultIcons = {
             Office: "fa-briefcase",
@@ -64,7 +64,7 @@ Module.register("MMM-Sensibo", {
         return this.config.roomIcons[roomType] || defaultIcons[roomType] || "fa-thermometer-half";
     },
 
-    getDom: function () {
+    getDom () {
         const wrapper = document.createElement("div");
         wrapper.className = `sensibo-thermostats ${this.config.view}`;
 
