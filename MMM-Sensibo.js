@@ -6,7 +6,7 @@
 Module.register("MMM-Sensibo", {
     defaults: {
         apiKey: "",
-        updateInterval: 2 * 60 * 1000, // Update every 2 minutes
+        updateInterval: 10 * 60 * 1000, // Update every 10 minutes
         view: "list", // "list" or "grid"
         roomIcons: {}, // Custom icons can be specified here
         temperatureUnit: "F" // Options: "F", "C", "dual"
